@@ -6,8 +6,10 @@ import axios from 'axios'
 import ElementUI,{Message}from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import {getToken} from '@/utils/localstorage'
+import TopBar from './components/TopBar.vue'
 Vue.config.productionTip = false
 Vue.prototype.$axios = axios
+Vue.component('top-bar',TopBar)
 axios.defaults.baseURL='http://localhost'
 //请求拦截器
 axios.interceptors.request.use((req) => {
