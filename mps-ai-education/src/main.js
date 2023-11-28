@@ -6,7 +6,7 @@ import axios from 'axios'
 import ElementUI,{Message}from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import {getToken} from '@/utils/localstorage'
-import TopBar from './components/TopBar.vue'
+import TopBar from './view/TopBar.vue'
 Vue.config.productionTip = false
 Vue.prototype.$axios = axios
 Vue.component('top-bar',TopBar)

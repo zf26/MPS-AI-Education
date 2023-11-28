@@ -34,7 +34,7 @@ export default {
     margin-top: 80px;
     height: 50px;
     width: 100%;
-    background-color:rgb(250,235 ,215,.6);
+    background-color:rgba(120, 247, 247, 0.6);
     justify-content: center;
     z-index: 2;
 }
@@ -43,64 +43,29 @@ export default {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     text-align: center;
     line-height: 50px;
-    width: 150px;
+    width: 200px;
     height: 50px;
     transition: all .5s; 
+    overflow: hidden;
 }
-.avater{
-    z-index: 1;
-    right: 15%;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-}
-.avater img{
-    width: 110%;
-    border-radius: 50%;
-}
-.tc{
-    display: none;
-    border: 2px solid gray;
-    border-radius: 5px;
-    line-height: 30px;
-    width: 100px;
-    color: gray;
-    cursor: pointer;
-}
-.tc li:hover{
-   background-color: ghostwhite;
-}
-.avater:hover .tc{
-   display: block;
-}
-.name{
-    transform: translateX(20px);
-    line-height: 50px;
-    font-size: 16px;
-    color: gray;
-    cursor: pointer;
-}
-.Head_Navigation a{
-    color:black; 
-}
-.Head_Navigation div:hover{
-    background-color: #c8adc4;
+.Head_Navigation div:nth-child(2):hover,.Head_Navigation div:nth-child(5):hover{
+    background-color: #79cffa;
+    height: 200px;
 }
 .Down_Menu{
-    display: none;
+    margin: 0px;
+    padding-inline-start: 0px;
     list-style: none;
+    background-color:#79cffa;
+    transition: all .5s; 
 }
 .Way:hover .Down_Menu{
     display: block;
 }
-.Down_Menu{
-    position: absolute;
-    background-color:rgb(250,235 ,215);
-}
 .Down_Menu li{
-    width: 150px;
+    width: 200px;
 }
 .Down_Menu li:hover{
-    background-color: #c8adc4;
+    background-color: rgba(120, 247, 247, 0.6);
 }
 </style>
