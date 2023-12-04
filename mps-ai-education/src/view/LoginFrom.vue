@@ -56,10 +56,12 @@
   export default {
      data(){
       return{
-        id:'',
-        email:'',
-        username:'',
-        password:'',
+        user:{
+          id: '',
+          email: '',
+          username: '',
+          password: '',
+        },
         choose:true,
         message:'',
         smscode:'',
@@ -149,21 +151,17 @@
         }
       },
       login(){
-        if(this.username.trim()===''||this.password.trim()==='')
+        if(this.user.username.trim()===''||this.user.password.trim()==='')
       {
         this.$message.error("用户名或密码不能为空！")
       }else{
-        axios.post('/user/login',{username:this.username,password:this.password}).then(res=>{
-      if(res.data.flag)
+        axios.post('/user/login',user).then(res=>{
+      if(res.data.is_right)
       { 
-          const user={id:res.data.login.id,
-          username:res.data.login.username,
-          email:res.data.login.email,
-          headprourl:res.data.login.headprourl}
-          this.$store.commit('setuser',user)
-          this.$store.commit('mSetTokenInfo',res.data.login.token)
-          this.$message.success(res.data.login.message)
-          setTimeout(()=>{this.$router.push('/homePage')},1000)
+          this.$store.commit('setuser',res.data.user)
+          this.$store.commit('mSetTokenInfo',res.data.user.token)
+          this.$message.success(res.data.message)
+          setTimeout(()=>{this.$router.push('/homepage')},1000)
       }
       else{
         this.$message.error("用户名或密码错误")
