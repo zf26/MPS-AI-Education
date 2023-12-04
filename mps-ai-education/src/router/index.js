@@ -4,9 +4,9 @@ Vue.config.productionTip = false
 Vue.use(VueRouter)
 const router= new VueRouter({
     routes:[
-        {path:'/', component:()=>import('../components/Home.vue')},
-        {path:'/login', component:()=>import('../view/Login.vue')},
-        {path:'/homepage', component:()=>import('../components/Home.vue')},
+        {path:'/', component:()=>import('../components/HomePage.vue')},
+        {path:'/loginfrom', component:()=>import('../view/LoginFrom.vue')},
+        {path:'/homepage', component:()=>import('../components/HomePage.vue')},
     ]
 })
 //push 

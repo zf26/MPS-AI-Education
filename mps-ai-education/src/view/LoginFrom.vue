@@ -17,21 +17,21 @@
               <h2 v-else>注册</h2>
             <form @submit.prevent>
               <div class="inputBox">
-                  <input type="text" placeholder="QQ邮箱" v-model="email" v-if="!this.choose">
+                  <input type="text" placeholder="QQ邮箱" v-model="user.email" v-if="!this.choose">
                 </div>
                 <div class="inputBox">
-                  <input type="text" placeholder="用户名" v-model="username">
+                  <input type="text" placeholder="用户名" v-model="user.username">
                 </div>
                 <div class="inputBox">
-                  <input type="password" placeholder="密码" v-model="password">
+                  <input type="password" placeholder="密码" v-model="user.password">
                 </div>
                 <div class="inputBox">
                   <input type="password" placeholder="验证码" v-model="smscode" v-if="!this.choose">
                 </div>
                   <el-button size="small" @click="getsmsCode" v-if="!this.choose" class="inputBox" :disabled="
                   (!this.checkEmail(this.email))||
-                  (this.username.trim()==='')||
-                  (this.password.trim()==='')||
+                  (this.user.username.trim()==='')||
+                  (this.user.password.trim()==='')||
                   (this.smscode.trim()!=''||
                   this.timeout)"><div v-if="!this.timeout">获 取 验 证 码</div>
                                  <div v-else>{{ countdown }} 秒后重新获取</div>
@@ -73,13 +73,13 @@
      },
      methods:{
        async checksmscode(){
-          await axios.post(`/user/checksmsCode?email=${this.email}&code=${this.smscode}`).then(res=>{
+          await axios.post(`/user/checksmsCode?email=${this.user.email}&code=${this.smscode}`).then(res=>{
             return res.data;
            })
         },
       async getsmsCode(){
         if(checkEmail(this.email)){
-        await axios.get(`/user/setsmsCode?mail=${this.email}`).then(res=>{
+        await axios.get(`/user/setsmsCode?mail=${this.user.email}`).then(res=>{
             if(res.data.code==200){
             this.$message.success(res.data.msg)
             this.timeout=true
@@ -93,8 +93,8 @@
         }
       },
       chooseswith(){
-        this.username=''
-        this.password=''
+        this.user.username=''
+        this.user.password=''
         this.choose=!this.choose
       },
       forgetpwd(){
@@ -120,31 +120,20 @@
         return true
       },
       register(){
-        if(this.email.trim()===''){
+        if(this.user.email.trim()===''){
           this.$message.error("邮箱不能为空！")
         }
-        else if(this.username.trim()===''||this.password.trim()==='')
+        else if(this.user.username.trim()===''||this.user.password.trim()==='')
         {
           this.$message.error("用户名或密码不能为空！")
-        }else if(!this.validatePassword(this.password)){
+        }else if(!this.validatePassword(this.user.password)){
           this.$message.error(this.message)
         }else if(this.smscode.trim()==''){
           this.$message.error("验证码不能为空！")
          }else{
           if(this.checksmscode()){
-            axios.post('/user/register', { email: this.email, username: this.username, password: this.password}).then(res => {
-              console.log(res.data)
-              if (res.data.flag) {
-                this.$message.success(res.data.msg)
-                
-                setTimeout(() => {
-                  this.choose = !this.choose;
-                  this.username = '';
-                  this.password = '';
-                }, 1000)
-              } else {
-                this.$message.error(res.data.msg)
-              }
+            axios.post('/user/register', this.user).then(res => {
+                 console.log(res)
             })
         }else{
           this.$message.error("验证码无效!")
@@ -156,7 +145,7 @@
       {
         this.$message.error("用户名或密码不能为空！")
       }else{
-        axios.post('/user/login',user).then(res=>{
+        axios.post('/user/login',this.user).then(res=>{
       if(res.data.is_right)
       { 
           this.$store.commit('setuser',res.data.user)
