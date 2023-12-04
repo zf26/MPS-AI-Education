@@ -29,7 +29,7 @@
                   <input type="password" placeholder="验证码" v-model="smscode" v-if="!this.choose">
                 </div>
                   <el-button size="small" @click="getsmsCode" v-if="!this.choose" class="inputBox" :disabled="
-                  (!this.checkEmail(this.email))||
+                  (!this.fun(this.user.email))||
                   (this.user.username.trim()==='')||
                   (this.user.password.trim()==='')||
                   (this.smscode.trim()!=''||
@@ -77,8 +77,11 @@
             return res.data;
            })
         },
+        fun(email){
+         return checkEmail(email)
+        },
       async getsmsCode(){
-        if(checkEmail(this.email)){
+        if(checkEmail(this.user.email)){
         await axios.get(`/user/setsmsCode?mail=${this.user.email}`).then(res=>{
             if(res.data.code==200){
             this.$message.success(res.data.msg)
@@ -145,6 +148,7 @@
       {
         this.$message.error("用户名或密码不能为空！")
       }else{
+        console.log(this.user)
         axios.post('/user/login',this.user).then(res=>{
       if(res.data.is_right)
       { 
