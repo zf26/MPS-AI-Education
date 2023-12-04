@@ -53,6 +53,7 @@
   
   <script>
   import axios from 'axios'
+  import { checkEmail } from '@/utils/checkEmail'
   export default {
      data(){
       return{
@@ -77,7 +78,7 @@
            })
         },
       async getsmsCode(){
-        if(this.checkEmail(this.email)){
+        if(checkEmail(this.email)){
         await axios.get(`/user/setsmsCode?mail=${this.email}`).then(res=>{
             if(res.data.code==200){
             this.$message.success(res.data.msg)
@@ -169,14 +170,6 @@
         })     
       }
       }, 
-      checkEmail(email) {
-        var emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-        if (emailRegex.test(email)) {
-          return true;
-        } else {
-          return false;
-        }
-      },  
       startCountdown() {
         this.countdown = 60; 
         this.timer = setInterval(() => {

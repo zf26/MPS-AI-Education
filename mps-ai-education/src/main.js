@@ -10,7 +10,7 @@ import TopBar from './view/TopBar.vue'
 Vue.config.productionTip = false
 Vue.prototype.$axios = axios
 Vue.component('top-bar',TopBar)
-axios.defaults.baseURL='http://localhost'
+axios.defaults.baseURL='http://localhost:8081'
 //请求拦截器
 axios.interceptors.request.use((req) => {
   if(req.url != '/user/login'){
