@@ -54,6 +54,7 @@
   <script>
   import axios from 'axios'
   import { checkEmail } from '@/utils/checkEmail'
+  import { encryptToken } from '@/utils/encryptToken'
   export default {
      data(){
       return{
@@ -83,13 +84,7 @@
       async getsmsCode(){
         if(checkEmail(this.user.email)){
         await axios.get(`/user/setsmsCode?mail=${this.user.email}`).then(res=>{
-            if(res.data.code==200){
-            this.$message.success(res.data.msg)
-            this.timeout=true
-            this.startCountdown()
-            }else{
-            this.$message.error(res.data.msg)
-            }
+             console.log(res)
          })
         }else{
           this.$message.error("请输入正确的邮箱!")
@@ -148,13 +143,15 @@
       {
         this.$message.error("用户名或密码不能为空！")
       }else{
-        console.log(this.user)
         axios.post('/user/login',this.user).then(res=>{
-      if(res.data.is_right)
-      { 
-          this.$store.commit('setuser',res.data.user)
-          this.$store.commit('mSetTokenInfo',res.data.user.token)
-          this.$message.success(res.data.message)
+      if(res.data.right)
+      {   
+        var key = "mpsaieducation26z"
+          const token=encryptToken(res.data.data.token,key)
+          res.data.data.token="******"
+          this.$store.commit('setuser',res.data.data)
+          this.$store.commit('mSetTokenInfo',token)
+          this.$message.success("登录成功")
           setTimeout(()=>{this.$router.push('/homepage')},1000)
       }
       else{
