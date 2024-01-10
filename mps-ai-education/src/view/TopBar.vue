@@ -19,7 +19,7 @@
         </div>
     </div>
     <div class="baseinFor">
-        <img src="../assets/images/屏幕截图 2023-10-28 111613.png" class="hadpro" style="width: 50px;height: 50px;border-radius: 50%;
+        <img src="../assets/images/2.jpg" class="hadpro" style="width: 50px;height: 50px;border-radius: 50%;
         position: absolute;left:0px;transition: all .5s;">
         <span class="usename">啊巴啊巴</span>
     </div>
