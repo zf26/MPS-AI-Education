@@ -63,6 +63,7 @@
           email: '',
           username: '',
           password: '',
+          url:'',
         },
         choose:true,
         message:'',
@@ -84,7 +85,13 @@
       async getsmsCode(){
         if(checkEmail(this.user.email)){
         await axios.get(`/user/setsmsCode?mail=${this.user.email}`).then(res=>{
-             console.log(res)
+             if(res.data.right){
+              this.timeout=true
+              this.startCountdown()
+              this.$message.success(res.data.message)
+             }else{
+              this.$message.error(res.data.message)
+             }
          })
         }else{
           this.$message.error("请输入正确的邮箱!")
@@ -130,7 +137,7 @@
           this.$message.error("验证码不能为空！")
          }else{
           if(this.checksmscode()){
-            axios.post('/user/register', this.user).then(res => {
+            axios.post('/user/register',this.user).then(res => {
                  console.log(res)
             })
         }else{
@@ -201,10 +208,10 @@
     filter: blur(150px);
   }
   section .color:nth-child(1) {
-    top: -350px;
+    top: -250px;
     width: 600px;
     height: 600px;
-    background: pink;
+    background: #eeedd6;
   }
   
   section .color:nth-child(2) {
@@ -212,7 +219,7 @@
     left: 100px;
     width: 500px;
     height: 500px;
-    background: #fcf959;
+    background: pink;
   }
   section .color:nth-child(3) {
     bottom: 50px;
@@ -341,7 +348,6 @@
     border-bottom: 1px solid rgb(255, 255, 255, 0.2);
     font-size: 16px;
     letter-spacing: 1px;
-    color: #fff;
     box-shadow: 0 5px 15px rgb(0, 0, 0, 0.05);
   }
   .form .inputBox input::placeholder {

@@ -19,18 +19,21 @@
         </div>
     </div>
     <div class="baseinFor">
-        <img src="../assets/images/2.jpg" class="hadpro" style="width: 50px;height: 50px;border-radius: 50%;
-        position: absolute;left:0px;transition: all .5s;">
-        <span class="usename">啊巴啊巴</span>
+        <img :src="user.url" class="hadpro" style="width: 50px;height: 50px;border-radius: 50%;
+        position: absolute;left:0px;transition: all .5s;" v-if="user.url!=NULL">
+        <img src="../assets/images/stu_icon.jpg" class="hadpro" style="width: 50px;height: 50px;border-radius: 50%;
+        position: absolute;left:0px;transition: all .5s;" v-else>
+        <span class="usename">{{ user.username }}</span>
     </div>
   </div>
 </template>
 
 <script>
+import{getUser} from '@/utils/localstorage'
 export default {
     data(){
      return{
-        
+        user:getUser()
      } 
     },
     methods:{
