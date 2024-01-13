@@ -12,7 +12,7 @@
         <div>人工智能</div>
         <div class="Way">我的
             <ul class="Down_Menu">
-                <li>基本信息</li>
+                <li @click="BaseInfo">基本信息</li>
                 <li>学习课程</li>
                 <li @click="ExitLogin">退出登录</li>   
                </ul>
@@ -34,6 +34,9 @@ export default {
      } 
     },
     methods:{
+        BaseInfo(){
+
+        },
         ExitLogin(){
             this.$router.push('/loginfrom')
         }
