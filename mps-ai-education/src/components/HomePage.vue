@@ -1,11 +1,12 @@
 <template>
   <div>
+    <base-info></base-info>
     <img src="../assets/images/logo.png" alt="" class="topimg">
     <div style="display: inline-block;width: 55%;"></div>
     <top-bar></top-bar>
     <div class="bodybox">
          <div class="mainbox">
-
+          
          </div>
     </div>
   </div>
@@ -13,8 +14,9 @@
 
 <script>
 import TopBar from '@/view/TopBar.vue'
+import BaseInfo from '@/view/BaseInfo.vue'
 export default {
-  components:{TopBar},
+  components:{TopBar,BaseInfo},
     data(){
      return{
         

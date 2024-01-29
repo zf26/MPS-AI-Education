@@ -20,7 +20,7 @@
     </div>
     <div class="baseinFor">
         <img :src="user.url" class="hadpro" style="width: 50px;height: 50px;border-radius: 50%;
-        position: absolute;left:0px;transition: all .5s;" v-if="user.url!=NULL">
+        position: absolute;left:0px;transition: all .5s;" v-if="user.url!=null">
         <img src="../assets/images/stu_icon.jpg" class="hadpro" style="width: 50px;height: 50px;border-radius: 50%;
         position: absolute;left:0px;transition: all .5s;" v-else>
         <span class="usename">{{ user.username }}</span>

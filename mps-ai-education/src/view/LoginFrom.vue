@@ -20,7 +20,7 @@
                   <input type="text" placeholder="QQ邮箱" v-model="user.email" v-if="!this.choose">
                 </div>
                 <div class="inputBox">
-                  <input type="text" placeholder="用户名" v-model="user.username">
+                  <input type="text" placeholder="用户名或邮箱" v-model="user.username">
                 </div>
                 <div class="inputBox">
                   <input type="password" placeholder="密码" v-model="user.password">
@@ -40,7 +40,7 @@
                   <input type="submit" value="登 录" @click="login" v-if="this.choose">
                   <input type="submit" value="注 册" @click="register" v-else>
                 </div>
-                <p class="forget">忘记密码？<label @click="forgetpwd">点这</label></p>
+                <p class="forget"  v-if="this.choose">忘记密码？<label @click="forgetpwd">点这</label></p>
                 <p class="forget" v-if="this.choose">没 有 账 户？ <label @click="chooseswith" >注 册</label></p>
                 <p class="forget" v-else>已 经 有 账 户 ? <label @click="chooseswith" >登 录</label></p>
             </form>
@@ -74,17 +74,11 @@
       }
      },
      methods:{
-       async checksmscode(){
-          await axios.post(`/user/checksmsCode?email=${this.user.email}&code=${this.smscode}`).then(res=>{
-            return res.data;
-           })
-        },
         fun(email){
          return checkEmail(email)
         },
       async getsmsCode(){
-        if(checkEmail(this.user.email)){
-        await axios.get(`/user/setsmsCode?mail=${this.user.email}`).then(res=>{
+        await axios.get(`/user/setsmsCode?mail=${this.user.email}&id=${this.user.email}`).then(res=>{
              if(res.data.right){
               this.timeout=true
               this.startCountdown()
@@ -93,9 +87,6 @@
               this.$message.error(res.data.message)
              }
          })
-        }else{
-          this.$message.error("请输入正确的邮箱!")
-        }
       },
       chooseswith(){
         this.user.username=''
@@ -136,17 +127,29 @@
         }else if(this.smscode.trim()==''){
           this.$message.error("验证码不能为空！")
          }else{
-          if(this.checksmscode()){
-            axios.post('/user/register',this.user).then(res => {
-                 console.log(res)
-            })
-        }else{
-          this.$message.error("验证码无效!")
+          axios.post(`/user/checksmsCode?email=${this.user.email}&code=${this.smscode}`).then(res=>{
+             if(res.data.right){
+              {
+                axios.post('/user/register', this.user).then(res => {
+                  this.$message.success(res.data.message)
+                  setTimeout(() => {
+                    this.choose = !this.choose;
+                    this.username = '';
+                    this.password = '';
+                  }, 1000)
+                })
+             }
+            }else{
+          this.$message.error("验证码错误!")
         }
+           })
         }
       },
       login(){
-        if(this.user.username.trim()===''||this.user.password.trim()==='')
+        if(checkEmail(this.user.username)){
+          this.user.email=this.user.username
+        }
+      if(this.user.username.trim()===''||this.user.password.trim()==='')
       {
         this.$message.error("用户名或密码不能为空！")
       }else{
@@ -371,7 +374,7 @@
   }
   .img_bk{
       position:fixed;
-      transform: translateX(-750px) translateY(-100px);
+      transform: translateX(-750px) translateY(-200px);
       width: 100%;
       opacity: .8;
   }
