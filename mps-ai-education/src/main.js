@@ -8,11 +8,6 @@ import 'element-ui/lib/theme-chalk/index.css';
 import {getToken} from '@/utils/localstorage'
 import { decryptToken } from './utils/encryptToken'
 import TopBar from './view/TopBar.vue'
-import BootstrapVue from "bootstrap-vue";
-Vue.use(BootstrapVue)
-import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap-vue/dist/bootstrap-vue.css'
-
 Vue.config.productionTip = false
 Vue.prototype.$axios = axios
 Vue.component('top-bar',TopBar)
