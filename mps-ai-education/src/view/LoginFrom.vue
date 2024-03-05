@@ -1,6 +1,6 @@
 <template>
     <div>
-      <img src="../assets/images/logo.png" alt="" class="img_bk">
+      <!-- <img src="../assets/images/logo.png" alt="" class="img_bk"> -->
       <section>
         <div class="color"></div>
         <div class="color"></div>
@@ -13,7 +13,9 @@
           <div class="square" style="--i:4;"></div>
           <div class="container">
             <div class="form">
-              <h2 v-if="this.choose">登录</h2>
+              <h2 v-if="this.choose">
+                登录平台
+              </h2>
               <h2 v-else>注册</h2>
             <form @submit.prevent>
               <div class="inputBox">
@@ -41,7 +43,7 @@
                   <input type="submit" value="注 册" @click="register" v-else>
                 </div>
                 <p class="forget"  v-if="this.choose">忘记密码？<label @click="forgetpwd">点这</label></p>
-                <p class="forget" v-if="this.choose">没 有 账 户？ <label @click="chooseswith" >注 册</label></p>
+                <p class="forget" v-if="this.choose">没 有 账 户 ？ <label @click="chooseswith" >注 册</label></p>
                 <p class="forget" v-else>已 经 有 账 户 ? <label @click="chooseswith" >登 录</label></p>
             </form>
             </div>
@@ -222,14 +224,14 @@
     left: 100px;
     width: 500px;
     height: 500px;
-    background: pink;
+    background:#6a6da9;
   }
   section .color:nth-child(3) {
     bottom: 50px;
     right: 100px;
     width: 500px;
     height: 500px;
-    background: skyblue;
+    background: rgb(6, 134, 184);
   }
   .box {
     position: relative;
@@ -354,7 +356,7 @@
     box-shadow: 0 5px 15px rgb(0, 0, 0, 0.05);
   }
   .form .inputBox input::placeholder {
-    color: #fff;
+    color: #77787b;
   }
   .form .inputBox input[type="submit"] {
     background: #fff;
@@ -366,7 +368,7 @@
   }
   .forget {
     margin-top: 5px;
-    color: #c9c5c5;
+    color: #3e4145;
   }
   .forget label {
     color: #fff;
@@ -378,5 +380,7 @@
       width: 100%;
       opacity: .8;
   }
-  
+  input:focus::placeholder{
+        opacity: 0;
+  }
   </style>
